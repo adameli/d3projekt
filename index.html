@@ -15,7 +15,8 @@
     <main id="wrapper">
         <div id="hero">
             <h1>Datavisualisering</h1>
-            <p>Made by </p>
+            <p id="hero-title">Världens befolkning</p>
+            <p>Made by Adam Eliasson & Teo Hardemo</p>
         </div>
         <section id="data">
             <div id="data-content-container">
@@ -89,14 +90,13 @@
             <div class="img"></div>
             <div class="text-section">
                 <h3>Målgrupp och relevans av visualiseringen</h3>
-                <p>Målgrupp och Relevans av Visualiseringen:
-                    Vi strävar efter att nå en bred målgrupp med vår visualisering, då datan berör hela befolkningen.
+                <p>Vi strävar efter att nå en bred målgrupp med våra visualiseringar, då datan berör hela befolkningen.
                     Detta är särskilt relevant med tanke på den ökande oron för att länder runt om i världen börjar få
                     färre barn eller till och med ingen barn alls. Många forskare har uppmärksammat denna trend och dess
                     potentiella konsekvenser, vilket har skapat både positiva och negativa diskussioner.</p>
 
-                <p>För att tydligt illustrera vart världens befolkning är på väg, valde vi att använda ett enkelt
-                    linjediagram i vår visualisering. Detta val gjordes för att maximera tillgängligheten för alla våra
+                <p>För att tydligt illustrera vart olika regioners befolkning är på väg, valde vi att använda ett enkelt
+                    linjediagram. Detta val gjordes för att maximera tillgängligheten för alla våra
                     tittare, samtidigt som det framhäver det annorlunda resultatet jämfört med tidigare år.</p>
 
                 <p>Vi valde att använda ett scatter plot-diagram för att visualisera utvecklingen av singelåldrarna i
@@ -104,7 +104,7 @@
                     av singelåldrar, och med en subtil och tillfredsställande övergång ger det en behagligare
                     presentation av data.</p>
 
-                <p>Genom vår visualisering strävar vi efter att väcka en ögonöppnande känsla hos alla betraktare. Vi
+                <p>Genom våra visualiseringar strävar vi efter att väcka en ögonöppnande känsla hos alla betraktare. Vi
                     hoppas att betraktarna tar sig tid att reflektera över var vi är på väg, baserat på den data som
                     presenteras i grafen. Det är vår förhoppning att visualiseringen kommer att fungera som en
                     katalysator för djupare tankar och diskussioner om framtiden för världens befolkning.</p>
@@ -112,9 +112,9 @@
 
         </section>
         <section id="visualization">
-            <h3>Världens befolkning och åldersgrupperna Young, workning och elderly</h3>
-            <p class="viz-description">Visualiseringen visar befolkningen i de olika kategorierna. Regionen(World,
-                Africa, Sweden) visar den totala befolkningen för hela regionen i personer. Young, Working, Elderly
+            <h3>Regioners befolkning och åldersgrupperna</h3>
+            <p class="viz-description">Visualiseringen visar befolkningen i de olika kategorierna. Regionen (World,
+                Africa, Sweden etc) visar den totala befolkningen för hela regionen i personer. Young, Working, Elderly
                 visar antal personer i ett ålderspan från den valda regionen.</p>
             <div id="visualization-container">
                 <div id="svg-container"></div>
@@ -144,11 +144,11 @@
     <script>
         //globals
         const hSvg = 800,
-                wSvg = hSvg * 1.2,
-                hViz = .8 * hSvg,
-                wViz = .8 * wSvg,
-                hPad = ( hSvg - hViz ) / 2,
-                wPad = ( wSvg - wViz ) / 2;
+            wSvg = hSvg * 1.2,
+            hViz = .8 * hSvg,
+            wViz = .8 * wSvg,
+            hPad = (hSvg - hViz) / 2,
+            wPad = (wSvg - wViz) / 2;
 
         const tickColor = '#f5f5f5';
 

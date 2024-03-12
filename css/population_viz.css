@@ -2,12 +2,19 @@ svg {
     overflow: visible;
 }
 
-rect {
+.listening-rect {
     pointer-events: all;
     fill-opacity: 0;
     stroke-opacity: 0;
     z-index: 1;
 }
+
+#visualization-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
 
 .tooltip {
     background-color: rgb(216, 216, 216);

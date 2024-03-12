@@ -1,29 +1,42 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* :focus {
+    outline: none;
+    outline: 1px solid black;
+}
+
+
 #vizJourney {
     height: 100svh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+    
     padding: 0 25px;
     gap: 0 25px;
-
-    background: #101010;
-
+    
+    /* background: #101010; */
+    
     & svg {
         display: block;
         margin: auto;
         background: black;
     }
-
+    
     & .sorting {
         width: 100%;
         padding: 25px;
         height: 100%;
-        color: white;
-
+        /* color: white; */
+        
         & h1 {
             text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif !important;
+            font-size: 40px;
         }
 
         & input {

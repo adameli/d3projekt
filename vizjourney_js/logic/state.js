@@ -5,7 +5,7 @@ const STATE = {};
 export async function get( entity ) {
 
     if( !STATE[entity]) {
-        STATE[entity] = await D3.csv( `${path}db/${entity}.csv`);
+        STATE[entity] = await D3.csv( `../../db/lifejourney_db/${entity}.csv`);
     }    
     return STATE[entity]
 }

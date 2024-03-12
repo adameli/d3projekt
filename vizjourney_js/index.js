@@ -119,6 +119,8 @@ async function vizualization(country) {
             .attr( 'x', d => XscaleTOT( d[Type] * 1000))
             .attr( 'y', d => Yscale( d.AgeGrp));
 
+
+        console.log( VIZ)
     }
 
     const interval = setInterval(updateViz, 150)

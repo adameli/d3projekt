@@ -49,6 +49,11 @@
     }
 }
 
+#lessons {
+    display: flex;
+    justify-content: space-between;
+}
+
 .text-section {
     max-width: 500px;
     margin-bottom: 30px;

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datavisualisering Projekt</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="css/population_viz.css">
-    <link rel="stylesheet" href="css/web.css">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./css/population_viz.css">
+    <link rel="stylesheet" href="./css/web.css">
     <link rel="stylesheet" href="./css/VizJourney.css">
 </head>
 
@@ -112,10 +112,12 @@
 
         </section>
         <section id="visualization">
-            <h3>Regioners befolkning och åldersgrupperna</h3>
+            <h3>Regioners befolkning och åldersgrupper</h3>
             <p class="viz-description">Visualiseringen visar befolkningen i de olika kategorierna. Regionen (World,
                 Africa, Sweden etc) visar den totala befolkningen för hela regionen i personer. Young, Working, Elderly
-                visar antal personer i ett ålderspan från den valda regionen.</p>
+                visar antal personer i ett ålderspan från den valda regionen. Obs dra musen över diagramet för att få
+                upp
+                statestik från individuellt år.</p>
             <div id="visualization-container">
                 <div id="svg-container"></div>
                 <div id="controls-container">
@@ -136,18 +138,81 @@
         </div>
 
         <section id="lessons-learned">
+            <h2>Tankar och reflektion</h2>
+            <div id="lessons">
+                <div class="vizpopulation-container">
+                    <div class="text-section">
+                        <h3>Svåraste delarna</h3>
+                        <p>En av de svåraste delarna i “befolkning och åldersgrupp” visualiseringen var att uppdatera
+                            regionernas kategorier beroende på det valda året i slidern. Först att förstå hur slidern
+                            funkar
+                            och
+                            vad den har för metoder, sedan vad som skulle uppdateras vid ‘onchange’ så att
+                            visualiseringen
+                            visar
+                            korrekt information. Dessutom var det svårt att implementera funktionaliteten för att visa
+                            information när man hovrade över visualiseringen. Det tog tid att säkerställa att rätt
+                            information
+                            visades för det årtal som musen pekade på, innan den kunde visas korrekt på resultatsidan
+                            bredvid
+                            visualiseringen.</p>
+                    </div>
+                    <div class="text-section">
+                        <h3>Viktiga lärdomar</h3>
+                        <p>En viktig lärdom är att kunna effektivt filtrera och dela upp ett dataset efter ens specifika
+                            behov.
+                            Genom att skapa en struktur som man själv känner igen och som är anpassad till sina behov
+                            blir
+                            det
+                            betydligt enklare att fortsätta arbetet med att skapa visualiseringar. Detta innebär inte
+                            bara
+                            att
+                            välja vilka variabler som ska ingå i visualiseringen, utan också att kunna välja relevanta
+                            delar
+                            eller kategorier. </p>
+                    </div>
+                    <div class="text-section">
+                        <h3>Till kommande Viz skapare</h3>
+                        <p>D3 har många fantastiska metoder och funktioner som hjälper en i skapandet av
+                            visualiseringar.
+                            Genom
+                            att söka och titta runt på internet finns det ett flertal lösningar som använder sig av
+                            metoder
+                            som
+                            komprimerar och förenklar koden. Var nyfiken, ge inte upp för lätt och ha kul.</p>
+                    </div>
+                </div>
 
-
-            <div class="text-section">
-                <h3>Tänk på hur datan presenteras</h3>
-                <p></p>
+                <div class="vizjourney-container">
+                    <div class="text-section">
+                        <h3>Svåraste delarna</h3>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero, illum vitae. Sit quis itaque
+                            ea
+                            suscipit vitae dolorem a minus officia? Odio consequatur architecto molestias voluptate in,
+                            labore mollitia quae.</p>
+                    </div>
+                    <div class="text-section">
+                        <h3>Viktiga lärdomar</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi voluptatum perferendis
+                            velit
+                            adipisci, fugit reiciendis porro deserunt eveniet quo iste officiis perspiciatis neque! Ex
+                            minima omnis, id ut amet facilis. </p>
+                    </div>
+                    <div class="text-section">
+                        <h3>Till kommande Viz skapare</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa at esse praesentium eum sequi
+                            dolor, aperiam eos, accusamus dolores sit obcaecati illo earum tempore. Explicabo, at.
+                            Deleniti
+                            quae eum pariatur?</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://unpkg.com/d3-simple-slider"></script>
-    <script type="module" src="vizpopulation_js/index.js"></script>
+    <script type="module" src="./vizpopulation_js/index.js"></script>
 
     <script>
         //globals

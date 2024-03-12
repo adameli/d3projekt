@@ -1,0 +1,200 @@
+import D3 from './logic/d3.js';
+import * as STATE from './logic/state.js';
+import { AXIS } from './scales.js';
+import { Yscale } from './scales.js';
+import * as SCALES from './scales.js';
+
+const colors = {
+    PopTotal: '#f1f1f1',
+    PopMale: '#488f31',
+    PopFemale: '#de425b'
+};
+
+const SVG = D3.select( '#vizJourney')
+              .append( 'svg')
+              .attr( 'height', hSvg)
+              .attr( 'width', wSvg);
+
+
+const VIZ = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad})`).classed('VizContainer', true);
+
+const LEGENDS = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad - 40})`).classed('LegendContainer', true);
+
+let LegendId = 0;
+for( const [key, color] of Object.entries(colors)) {
+    
+    LEGENDS.append( 'circle')
+            .attr( 'r', 10)
+            .attr( 'fill', color)
+            .attr( 'cx', (35 * LegendId));
+
+    LegendId++;
+}
+
+
+SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${hPad + 15})`)
+    .append( 'text')
+    .attr( 'fill', 'white')
+    .attr( 'text-anchor', 'middle')
+    .classed( 'countryText', true);
+
+SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${(hViz + hPad) + 40})`)
+    .append( 'text')
+    .attr( 'text-anchor', 'middle')
+    .append( 'tspan')
+    .text( '⟵ MAX -- ')
+    .attr( 'fill', tickColor + 75)
+    .attr( 'font-size', 10)
+    .append( 'tspan')
+    .text( 'Number of Population')
+    .attr( 'fill', tickColor)
+    .attr( 'font-size', 15)
+    .attr( 'font-style', 'italic')
+    .append( 'tspan')
+    .text( ' -- MIN ⟶')
+    .attr( 'fill', tickColor + 75)
+    .attr( 'font-style', 'normal')
+    .attr( 'font-size', 10)
+
+const leftAxis = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad})`).call( AXIS['left']);
+const rightAxis = SVG.append( 'g').attr( 'transform', `translate( ${wViz + wPad}, ${hPad})`).call( AXIS['right']);
+styleAxis( [leftAxis, rightAxis]);
+
+async function vizualization(country) {
+    
+    SVG.selectAll( '.removable').remove();
+    SVG.select('.countryText').text( null)
+
+    const LOADING = SVG.append( 'g').attr( 'transform', `translate( ${wSvg / 2}, ${hSvg / 2})`)
+        .append( 'text')
+        .attr( 'text-anchor', 'middle')
+        .text( `LOADING:: ${country}`)
+        .attr( 'fill', 'white');
+    
+    const db = await STATE.get( country);
+    
+    let currentYear = 0;
+    LOADING.remove();
+
+    SVG.select('.countryText')
+        .text( country)
+    
+    //GENERATE DB ARRAY of Each TIME -> [ agegroup dp ]
+    let DB = [];
+    let lastYear = 0;
+    let Yarray = [];
+    for( const dp of db) {
+
+        if( lastYear < parseInt(dp.Time)) {
+            DB.push( Yarray);
+            Yarray = [];
+            lastYear = parseInt(dp.Time);
+        }
+        Yarray.push( dp);
+    }
+    DB.splice( 0, 1);
+
+    // GET Top && Bottom Xscales
+    const Xscale = SCALES.getXScale( DB[currentYear]);
+    const XscaleTOT = SCALES.getXScale( DB, true);
+    const YEARscale = SCALES.getYearScale( DB[currentYear]);
+
+    // STYLE AXIS
+    const bottomAxis = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hViz + hPad})`).classed( 'removable', true).call( D3.axisBottom( XscaleTOT));
+    const topAxis = SVG.append( 'g').classed('YearAxis', true).classed( 'removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( YEARscale));
+    topAxis.selectAll( '.tick text').attr( 'font-size', 25);
+    styleAxis( [bottomAxis, topAxis]);
+
+    for( let Type of ['PopTotal', 'PopMale', 'PopFemale']) {
+        
+        VIZ.selectAll()
+            .data( DB[currentYear])
+            .enter()
+            .append( 'rect')
+            .classed( Type, true)
+            .classed( 'removable', true)
+            .attr( 'height', 2)
+            .attr( 'width', 2)
+            .attr( 'fill', colors[Type])
+            .attr( 'x', d => XscaleTOT( d[Type] * 1000))
+            .attr( 'y', d => Yscale( d.AgeGrp));
+
+    }
+
+    const interval = setInterval(updateViz, 150)
+
+    function updateViz() {
+        currentYear++;
+        if( currentYear === DB.length) {
+            clearInterval( interval)
+            return;
+        }
+
+        // CHANGE YEAR
+        const newScale = SCALES.getYearScale( DB[currentYear])
+        D3.select( '.YearAxis').remove();
+        let newAxis = SVG.append( 'g').classed('YearAxis', true).classed('removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( newScale));
+        newAxis.selectAll( '.tick text').attr( 'font-size', 25);
+        styleAxis([newAxis]);
+
+
+        for( let Type of ['PopTotal', 'PopMale', 'PopFemale']) {
+
+            VIZ.selectAll( '.' + Type)
+                .data( DB[currentYear])
+                .transition()
+                // .ease(D3.easeCubic)
+                .attr( 'x', d => XscaleTOT( d[Type] * 1000)) 
+                .attr( 'y', d => Yscale( d.AgeGrp));
+
+        }
+    }
+}
+
+function styleAxis( ARRAY ) {
+    for( let currentAxis of ARRAY) {
+        currentAxis.selectAll( '.tick text').attr( 'fill', tickColor).attr( 'font-family', 'georgia');
+        currentAxis.selectAll( '.tick line').attr( 'stroke', tickColor + '35');
+    }
+}
+
+function ClearAllIntervals() {
+    for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+}
+
+(async function(){
+    const rqst = new Request( 'https://www.thardemo.com/api/life_journey/entities.php');
+    const entities = await ( await fetch( rqst)).json();
+
+    const sortingContainer = document.querySelector( '.results');
+    const searchContainer = document.querySelector( '.searchField');
+    
+    entities.forEach( x => appendEntity( x));
+    
+    searchContainer.oninput = ( e ) => {
+        sortingContainer.innerHTML = null;
+        let searchInput = e.target.value;
+        let result = entities.filter( e => e.toLowerCase().includes( searchInput.toLowerCase()));
+
+        if( !result.length) {
+            sortingContainer.innerHTML = 'No results...';
+            return;
+        }
+
+        result.forEach( xEntity => appendEntity( xEntity));
+    }
+
+    function appendEntity( xEntity) {
+        const entityElement = document.createElement( 'li');
+        entityElement.textContent = xEntity;
+
+        entityElement.addEventListener('click', () => {
+            ClearAllIntervals();
+            vizualization( xEntity);
+        })
+
+        sortingContainer.append( entityElement)
+    }
+
+})();

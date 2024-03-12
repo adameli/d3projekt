@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="css/population_viz.css">
     <link rel="stylesheet" href="css/web.css">
+    <link rel="stylesheet" href="./css/VizJourney.css">
 </head>
 
 <body>
@@ -122,12 +123,36 @@
                 </div>
             </div>
         </section>
+
+        <div id="vizJourney">
+            <div class="sorting">
+                <h1>Life Journey Vizualization</h1>
+                <input type="text" placeholder="Search Country" class="searchField" type="search">
+                <ul class="results">
+                </ul>
+            </div>
+        </div>
+
         <section id="lessons-learned"></section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://unpkg.com/d3-simple-slider"></script>
     <script type="module" src="vizpopulation_js/index.js"></script>
+
+    <script>
+        //globals
+        const hSvg = 800,
+                wSvg = hSvg * 1.2,
+                hViz = .8 * hSvg,
+                wViz = .8 * wSvg,
+                hPad = ( hSvg - hViz ) / 2,
+                wPad = ( wSvg - wViz ) / 2;
+
+        const tickColor = '#f5f5f5';
+
+    </script>
+    <script type="module" src="./vizjourney_js/index.js"></script>
 </body>
 
 </html>

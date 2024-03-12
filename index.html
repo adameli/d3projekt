@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datavisualisering Projekt</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/population_viz.css">
+    <link rel="stylesheet" href="css/web.css">
+</head>
+
+<body>
+    <main id="wrapper">
+        <div id="hero">
+            <h1>Datavisualisering</h1>
+            <p>Made by </p>
+        </div>
+        <section id="data">
+            <div id="data-content-container">
+                <div class="text-section">
+                    <h3>Trovärdighet</h3>
+                    <p>FN:s data från befolknings avdelningen anses vara trovärdig för datavisualisering av flera
+                        anledningar. För det första säkerställer FN en global täckning genom att samla in data från
+                        nästan
+                        alla länder. Dessutom standardiseras data för att möjliggöra enkel jämförelse mellan länder och
+                        över
+                        tidsperioder.</p>
+
+                    <p> FN:s data uppdateras regelbundet för att återspegla senaste utvecklingstrender och forskning,
+                        vilket
+                        säkerställer tillgång till aktuell information. Dessutom används och erkänns FN:s data av
+                        regeringar, akademiska institutioner, internationella organisationer och andra aktörer över hela
+                        världen, vilket understryker dess auktoritet och tillförlitlighet.
+                        Med dessa faktorer blir FN:s data till en av de mest pålitliga källorna för datavisualiseringar,
+                        särskilt för globala och jämförande analyser.
+                    </p>
+                </div>
+                <div class="text-section">
+                    <h3>Källor</h3>
+                    <div id="links">
+                        <a target="_blank" href="https://population.un.org/wpp/Download/Standard/MostUsed/">Population,
+                            by 5-year age groups</a>
+                        <a target="_blank" href="https://population.un.org/wpp/Download/Standard/MostUsed/">Single age
+                            life tables up to age 100 - Both Sexes</a>
+                    </div>
+                    <div id="people-transition-container"></div>
+                </div>
+            </div>
+        </section>
+        <section id="dataproces">
+            <div id="dataproces-container">
+
+                <h2>Databearbetning</h2>
+                <div class="text-section">
+                    <h3>Datasets innehåll</h3>
+                    <p>Båda dataseten innehåller en mängd olika nycklar som inte är nödvändiga för den visuella
+                        representationen vi har arbetat med. För att göra hanteringen enklare och mer fokuserad på våra
+                        behov, använde vi en funktion i samband med att vi konverterade csv filen som väljer endast de
+                        nycklar som vi behövde för vår visualisering.</p>
+                </div>
+                <div class="text-section">
+                    <h3>Världen i åldersgrupper</h3>
+                    <p>I detta dataset är åldersgrupperna uppdelade i intervaller som 0-4 år, 5-10 år osv. Detta innebär
+                        att
+                        för varje år finns det data för varje åldersgrupp. För att organisera och behandla denna data på
+                        ett
+                        lämpligt sätt går vi igenom varje år och lägger ihop åldersgrupperna som vi behöver(young,
+                        working,
+                        elderly) och sedan skapar nya objekt. Dessa objekt placeras sedan i separata arrayer beroende på
+                        vilken kategori de tillhör.</p>
+                </div>
+                <div class="text-section">
+                    <h3>Dela upp i dåtid & framtid</h3>
+                    <p>Utöver de grundläggande datan innehåller dataseten också uppskattningar för framtida års
+                        befolknings-
+                        och åldersgruppsförändringar. För att hantera detta filtrerar vi ut data för åren fram till 2024
+                        för
+                        att fokusera på tidigare och närliggande år. Därefter filtrerar vi ut data för framtida år upp
+                        till
+                        2101 för att skapa linjer som visar tidigare och förväntade befolknings- och
+                        åldersgruppsförändringar.</p>
+                </div>
+            </div>
+            <div id="grid-img" class="img"></div>
+        </section>
+        <section id="introduction">
+            <div class="img"></div>
+            <div class="text-section">
+                <h3>Målgrupp och relevans av visualiseringen</h3>
+                <p>Målgrupp och Relevans av Visualiseringen:
+                    Vi strävar efter att nå en bred målgrupp med vår visualisering, då datan berör hela befolkningen.
+                    Detta är särskilt relevant med tanke på den ökande oron för att länder runt om i världen börjar få
+                    färre barn eller till och med ingen barn alls. Många forskare har uppmärksammat denna trend och dess
+                    potentiella konsekvenser, vilket har skapat både positiva och negativa diskussioner.</p>
+
+                <p>För att tydligt illustrera vart världens befolkning är på väg, valde vi att använda ett enkelt
+                    linjediagram i vår visualisering. Detta val gjordes för att maximera tillgängligheten för alla våra
+                    tittare, samtidigt som det framhäver det annorlunda resultatet jämfört med tidigare år.</p>
+
+                <p>Vi valde att använda ett scatter plot-diagram för att visualisera utvecklingen av singelåldrarna i
+                    olika länder över åren. Detta diagram ger tittaren en snabb överblick över ökningar och minskningar
+                    av singelåldrar, och med en subtil och tillfredsställande övergång ger det en behagligare
+                    presentation av data.</p>
+
+                <p>Genom vår visualisering strävar vi efter att väcka en ögonöppnande känsla hos alla betraktare. Vi
+                    hoppas att betraktarna tar sig tid att reflektera över var vi är på väg, baserat på den data som
+                    presenteras i grafen. Det är vår förhoppning att visualiseringen kommer att fungera som en
+                    katalysator för djupare tankar och diskussioner om framtiden för världens befolkning.</p>
+            </div>
+
+        </section>
+        <section id="visualization">
+            <h3>Världens befolkning och åldersgrupperna Young, workning och elderly</h3>
+            <p class="viz-description">Visualiseringen visar befolkningen i de olika kategorierna. Regionen(World,
+                Africa, Sweden) visar den totala befolkningen för hela regionen i personer. Young, Working, Elderly
+                visar antal personer i ett ålderspan från den valda regionen.</p>
+            <div id="visualization-container">
+                <div id="svg-container"></div>
+                <div id="controls-container">
+                    <div id="container-buttons"></div>
+                    <div class="tooltip"></div>
+                </div>
+            </div>
+        </section>
+        <section id="lessons-learned"></section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script type="module" src="vizpopulation_js/index.js"></script>
+</body>
+
+</html>

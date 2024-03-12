@@ -1,0 +1,62 @@
+svg {
+    overflow: visible;
+}
+
+rect {
+    pointer-events: all;
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    z-index: 1;
+}
+
+.tooltip {
+    background-color: rgb(216, 216, 216);
+    display: none;
+    min-width: 365px;
+    height: fit-content;
+    padding-bottom: 10px;
+    border-radius: 20px;
+
+}
+
+.tooltip-header {
+    border-radius: 20px 20px 0 0;
+    background-color: rgb(236, 236, 236);
+    padding: 5px 30px;
+    margin-bottom: 10px;
+
+    & p {
+        margin: 8px 0;
+    }
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.stats p {
+    margin: 7px 0;
+}
+
+.left-content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.square {
+    height: 15px;
+    width: 15px;
+}
+
+.x-axis,
+.y-axis .tick {
+    font-size: 12px;
+}
+
+.parameter-value text {
+    font-size: 12px;
+}

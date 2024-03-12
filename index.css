@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'space-mono';
+    src: url('resources/fonts/SpaceMono-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('resources/fonts/Roboto-Regular.ttf');
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    margin: 0;
+    background-color: #dde5e7;
+}
+
+section {
+    margin: 50px 100px;
+}
+
+h1 {
+    font-family: 'space-mono';
+    font-size: 60px;
+}
+
+h2 {
+    font-family: 'space-mono';
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 22px;
+    font-family: 'roboto';
+    margin: 10px 0 5px 0;
+}
+
+p {
+    line-height: 2;
+}

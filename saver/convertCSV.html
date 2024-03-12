@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>CSV Converter</h1>
+
+    <script type="module">
+        import * as D3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm';
+        // console.log( D3)
+
+        // SortOrder,LocID,Notes,ISO3_code,ISO2_code,SDMX_code,LocTypeID,LocTypeName,ParentID,Location,VarID,Variant,Time,MidPeriod,SexID,Sex,AgeGrp,AgeGrpStart,AgeGrpSpan,mx,qx,px,lx,dx,Lx,Sx,Tx,ex,ax
+        (async function () {
+            // const data = await D3.csv( './WPP2022_Life_Table_Complete_Medium_Both_1950-2021.csv');
+            const data = await D3.csv('../db/population_age_group.csv');
+            // console.log(data);
+            let DATABASE = {};
+            for (let [I, INSTANCE] of data.entries()) {
+
+                if (!DATABASE[INSTANCE.Location]) DATABASE[INSTANCE.Location] = [];
+                DATABASE[INSTANCE.Location].push(INSTANCE);
+            }
+
+            let COLUMNS = {}
+            for (const column of data.columns) {
+                COLUMNS[column] = column;
+            }
+
+            console.log(COLUMNS);
+            console.log(DATABASE);
+
+            for (const ENTITY in DATABASE) {
+                const FIELDS = DATABASE[ENTITY];
+                // console.log(ENTITY);
+                // console.log(FIELDS);
+                // console.log(FIELDS[0]);
+                if (FIELDS[0].LocTypeName != 'Geographic region') continue;
+
+                const rqstColumns = new Request('./save.php', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        entity: ENTITY,
+                        fields: [COLUMNS],
+                    })
+                });
+
+                await fetch(rqstColumns)
+
+                let rqst = new Request('./save.php', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        entity: ENTITY,
+                        fields: FIELDS,
+                    })
+                });
+
+                await fetcher(rqst);
+            }
+        })()
+
+
+        async function fetcher(rqst) { return await (await fetch(rqst)).json() };
+
+
+    </script>
+</body>
+
+</html>

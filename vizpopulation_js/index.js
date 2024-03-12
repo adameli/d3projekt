@@ -172,6 +172,7 @@ async function renderViz(region = 'World') {
         .attr('stroke-dasharray', '2.2')
 
     const listeningRect = gViz.append('rect')
+        .classed('listening-rect', true)
         .attr('width', wViz)
         .attr('height', hViz)
         .style('fill', 'none')

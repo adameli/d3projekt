@@ -6,6 +6,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    & #hero-title {
+        font-size: 40px;
+        margin: 0 0 50px 0;
+        font-family: 'space-mono';
+    }
 }
 
 
@@ -79,11 +85,7 @@
     transition: opacity 1s;
 }
 
-#visualization-container {
-    display: flex;
-    gap: 30px;
-    margin-top: 20px;
-}
+
 
 #container-buttons {
     display: flex;

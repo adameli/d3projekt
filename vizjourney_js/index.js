@@ -18,43 +18,27 @@ const SVG = D3.select( '#vizJourney')
 
 const VIZ = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad})`).classed('VizContainer', true);
 
-const LEGENDS = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad - 40})`).classed('LegendContainer', true);
+const LEGENDS = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad - 50})`).classed('LegendContainer', true);
 
-let LegendId = 0;
+let LegendInx = 0;
 for( const [key, color] of Object.entries(colors)) {
     
-    LEGENDS.append( 'circle')
+    const Lgroup = LEGENDS.append( 'g').attr( 'transform', `translate( ${75 * LegendInx})`)
+    Lgroup.append( 'circle')
             .attr( 'r', 10)
             .attr( 'fill', color)
-            .attr( 'cx', (35 * LegendId));
 
-    LegendId++;
+    Lgroup.append( 'text')
+        .text( key)
+        .attr( 'fill', tickColor)
+        .attr( 'y', 25)
+        .attr( 'text-anchor', 'middle')
+        .attr( 'font-size', 10)
+
+    LegendInx++;
 }
 
-
-SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${hPad + 15})`)
-    .append( 'text')
-    .attr( 'fill', 'white')
-    .attr( 'text-anchor', 'middle')
-    .classed( 'countryText', true);
-
-SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${(hViz + hPad) + 40})`)
-    .append( 'text')
-    .attr( 'text-anchor', 'middle')
-    .append( 'tspan')
-    .text( '⟵ MAX -- ')
-    .attr( 'fill', tickColor + 75)
-    .attr( 'font-size', 10)
-    .append( 'tspan')
-    .text( 'Number of Population')
-    .attr( 'fill', tickColor)
-    .attr( 'font-size', 15)
-    .attr( 'font-style', 'italic')
-    .append( 'tspan')
-    .text( ' -- MIN ⟶')
-    .attr( 'fill', tickColor + 75)
-    .attr( 'font-style', 'normal')
-    .attr( 'font-size', 10)
+writeLabels();
 
 const leftAxis = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hPad})`).call( AXIS['left']);
 const rightAxis = SVG.append( 'g').attr( 'transform', `translate( ${wViz + wPad}, ${hPad})`).call( AXIS['right']);
@@ -76,8 +60,7 @@ async function vizualization(country) {
     let currentYear = 0;
     LOADING.remove();
 
-    SVG.select('.countryText')
-        .text( country)
+    SVG.select('.countryText').text( country)
     
     //GENERATE DB ARRAY of Each TIME -> [ agegroup dp ]
     let DB = [];
@@ -95,7 +78,7 @@ async function vizualization(country) {
     DB.splice( 0, 1);
 
     // GET Top && Bottom Xscales
-    const Xscale = SCALES.getXScale( DB[currentYear]);
+    // const Xscale = SCALES.getXScale( DB[currentYear]);
     const XscaleTOT = SCALES.getXScale( DB, true);
     const YEARscale = SCALES.getYearScale( DB[currentYear]);
 
@@ -118,9 +101,6 @@ async function vizualization(country) {
             .attr( 'fill', colors[Type])
             .attr( 'x', d => XscaleTOT( d[Type] * 1000))
             .attr( 'y', d => Yscale( d.AgeGrp));
-
-
-        console.log( VIZ)
     }
 
     const interval = setInterval(updateViz, 150)
@@ -132,7 +112,6 @@ async function vizualization(country) {
             return;
         }
 
-        // CHANGE YEAR
         const newScale = SCALES.getYearScale( DB[currentYear])
         D3.select( '.YearAxis').remove();
         let newAxis = SVG.append( 'g').classed('YearAxis', true).classed('removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( newScale));
@@ -145,12 +124,55 @@ async function vizualization(country) {
             VIZ.selectAll( '.' + Type)
                 .data( DB[currentYear])
                 .transition()
-                // .ease(D3.easeCubic)
-                .attr( 'x', d => XscaleTOT( d[Type] * 1000)) 
+                .attr( 'x', d => XscaleTOT( Math.floor(d[Type] * 1000))) 
                 .attr( 'y', d => Yscale( d.AgeGrp));
 
         }
     }
+}
+
+function writeLabels() {
+    SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${hPad + 15})`)
+    .append( 'text')
+    .attr( 'fill', 'white')
+    .attr( 'text-anchor', 'middle')
+    .classed( 'countryText', true);
+
+    SVG.append( 'g').attr( 'transform', `translate( ${(wSvg / 2)}, ${(hViz + hPad) + 40})`)
+        .append( 'text')
+        .attr( 'text-anchor', 'middle')
+        .append( 'tspan')
+        .text( '⟵ MAX -- ')
+        .attr( 'fill', tickColor + 75)
+        .attr( 'font-size', 10)
+        .append( 'tspan')
+        .text( 'Number of Population')
+        .attr( 'fill', tickColor)
+        .attr( 'font-size', 15)
+        .attr( 'font-style', 'italic')
+        .append( 'tspan')
+        .text( ' -- MIN ⟶')
+        .attr( 'fill', tickColor + 75)
+        .attr( 'font-style', 'normal')
+        .attr( 'font-size', 10)
+    
+    SVG.append('g').attr( 'transform', `translate( ${wPad - 40}, ${hSvg / 2}) rotate( -90)`)
+        .append( 'text')
+        .attr( 'text-anchor', 'middle')
+        .append( 'tspan')
+        .text( '⟵ 0 -- ')
+        .attr( 'fill', tickColor + 75)
+        .attr( 'font-size', 10)
+        .append( 'tspan')
+        .text( 'Ages Between')
+        .attr( 'fill', tickColor)
+        .attr( 'font-size', 15)
+        .attr( 'font-style', 'italic')
+        .append( 'tspan')
+        .text( ' -- 100 ⟶')
+        .attr( 'fill', tickColor + 75)
+        .attr( 'font-style', 'normal')
+        .attr( 'font-size', 10)
 }
 
 function styleAxis( ARRAY ) {
@@ -161,8 +183,7 @@ function styleAxis( ARRAY ) {
 }
 
 function ClearAllIntervals() {
-    for (var i = 1; i < 99999; i++)
-        window.clearInterval(i);
+    for (var i = 1; i < 99999; i++) window.clearInterval(i);
 }
 
 (async function(){

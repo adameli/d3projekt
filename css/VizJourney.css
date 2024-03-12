@@ -1,0 +1,57 @@
+#vizJourney {
+    height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+    padding: 0 25px;
+    gap: 0 25px;
+
+    background: #101010;
+
+    & svg {
+        display: block;
+        margin: auto;
+        background: black;
+    }
+
+    & .sorting {
+        width: 100%;
+        padding: 25px;
+        height: 100%;
+        color: white;
+
+        & h1 {
+            text-align: center;
+        }
+
+        & input {
+            width: 100%;
+            padding: 10px;
+
+            border: 1px solid #00000068;
+        }
+
+        & ul {
+            list-style: none;
+            padding: unset;
+            max-height: 55svh;
+            border: 1px solid black;
+            border-bottom: unset;
+
+            overflow: scroll;
+            
+            & li {
+                padding: 10px;
+                border-bottom: 1px solid black;
+            }
+
+            & li:hover {
+                background: black;
+                border: 1px solid white;
+                /* color: white; */
+            }
+        }
+    }
+}

@@ -18,7 +18,7 @@
             <p id="hero-title">Världens befolkning</p>
             <p>Made by Adam Eliasson & Teo Hardemo</p>
         </div>
-        
+
         <section id="data">
             <div id="data-content-container">
                 <div class="text-section">
@@ -40,7 +40,6 @@
                     </p>
                 </div>
                 <div class="text-section">
-                    <div id="people-transition-container"></div>
                     <h3>Källor</h3>
                     <div id="links">
                         <a target="_blank" href="https://population.un.org/wpp/Download/Standard/MostUsed/">Population,
@@ -48,6 +47,7 @@
                         <a target="_blank" href="https://population.un.org/wpp/Download/Standard/MostUsed/">Single age
                             life tables up to age 100 - Both Sexes</a>
                     </div>
+                    <div id="people-transition-container"></div>
                 </div>
             </div>
         </section>
@@ -72,7 +72,7 @@
                         lämpligt sätt går vi igenom varje år och lägger ihop åldersgrupperna som vi behöver(young,
                         working,
                         elderly) och sedan skapar nya objekt. Dessa objekt placeras sedan i separata arrayer beroende på
-                        vilken kategori de tillhör.</p>
+                        vilken kategori de tillhör. </p>
                 </div>
                 <div class="text-section">
                     <h3>Dela upp i dåtid & framtid</h3>
@@ -86,11 +86,11 @@
                         åldersgruppsförändringar.</p>
                 </div>
             </div>
-            <div id="grid-img" class="img"></div>
+            <div id="worldmap-img" class="img"></div>
         </section>
 
         <section id="introduction">
-            <div class="img"></div>
+            <div id="world-population-img" class="img"></div>
             <div class="text-section">
                 <h3>Målgrupp och relevans av visualiseringen</h3>
                 <p>Vi strävar efter att nå en bred målgrupp med våra visualiseringar, då datan berör hela befolkningen.
@@ -119,7 +119,8 @@
             <h3>Regioners befolkning och åldersgrupper</h3>
             <p class="viz-description">Visualiseringen visar befolkningen i de olika kategorierna. Regionen (World,
                 Africa, Sweden etc) visar den totala befolkningen för hela regionen i personer. Young, Working, Elderly
-                visar antal personer i ett ålderspan från den valda regionen. Obs dra musen över diagramet för att få
+                visar antal personer i ett ålderspan från den valda regionen. Den hela linjen representerar åren 1950 -
+                2024, den streckade linjen representerar åren 2025 - 2101. Obs dra musen över diagramet för att få
                 upp
                 statestik från individuellt år.</p>
             <div id="visualization-container">
@@ -197,15 +198,28 @@
                     <h3>Life Journey</h3>
                     <div class="text-section">
                         <h3>Svåraste delarna</h3>
-                        <p>Det som tog mest tid till visualiseringen var att bearbeta och dela upp de två olika csv filerna som datan levereras från. För att effektivt kunna skapa en visualisering som laddar in under en rimlig tid var datasetet tvunget att delas upp. Detta gjorde jag genom en kombination av D3, JavaScript och Php. Det svåra var att jag aldrig arbetat med csv och visste inte hur jag skulle hantera att sortera datan och skicka sakerna till servern så att det skulle sparas på rätt sätt, och med rätt kolumner tillhörande rader</p>
+                        <p>Det som tog mest tid till visualiseringen var att bearbeta och dela upp de två olika csv
+                            filerna som datan levereras från. För att effektivt kunna skapa en visualisering som laddar
+                            in under en rimlig tid var datasetet tvunget att delas upp. Detta gjorde jag genom en
+                            kombination av D3, JavaScript och Php. Det svåra var att jag aldrig arbetat med csv och
+                            visste inte hur jag skulle hantera att sortera datan och skicka sakerna till servern så att
+                            det skulle sparas på rätt sätt, och med rätt kolumner tillhörande rader</p>
                     </div>
                     <div class="text-section">
                         <h3>Viktiga lärdomar</h3>
-                        <p>Att göra upp en ordentlig plan innan man börjar arbeta med visualiseringen upptäckte jag var väldigt viktigt. Jag satt länge och skissade på papper om hur jag ville att visualiseringen skulle presentera sin data. Genom detta kunde jag räkna ut att min originella plan hade sett imponerande ut men datan hade förvrängts och visualiserinngen hade lidigt av det. Detta sparade mig också väldigt mycket tid i att jag slapp upptäcka problemet under skapandet av visualiseringen</p>
+                        <p>Att göra upp en ordentlig plan innan man börjar arbeta med visualiseringen upptäckte jag var
+                            väldigt viktigt. Jag satt länge och skissade på papper om hur jag ville att visualiseringen
+                            skulle presentera sin data. Genom detta kunde jag räkna ut att min originella plan hade sett
+                            imponerande ut men datan hade förvrängts och visualiserinngen hade lidigt av det. Detta
+                            sparade mig också väldigt mycket tid i att jag slapp upptäcka problemet under skapandet av
+                            visualiseringen</p>
                     </div>
                     <div class="text-section">
                         <h3>Till kommande Viz skapare</h3>
-                        <p>Jag skulle vilja utmana mig lite mer med vad jag gör med hjälp av D3 biblioteket då jag vet och har sett hur kraftfullt verktyget faktiskt är.  Att göra visualiseringen lite mer interaktiv är också en sak. Exempelvis om man hoverar över en cell att det står mer info om när befolkningsgruppen är född och mer exakt data om hur många osv.</p>
+                        <p>Jag skulle vilja utmana mig lite mer med vad jag gör med hjälp av D3 biblioteket då jag vet
+                            och har sett hur kraftfullt verktyget faktiskt är. Att göra visualiseringen lite mer
+                            interaktiv är också en sak. Exempelvis om man hoverar över en cell att det står mer info om
+                            när befolkningsgruppen är född och mer exakt data om hur många osv.</p>
                     </div>
                 </div>
             </div>

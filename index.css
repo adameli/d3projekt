@@ -8,34 +8,46 @@
     src: url('resources/fonts/Roboto-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'raleway';
+    src: url('resources/fonts/Raleway-VariableFont_wght.ttf');
+}
+
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    font-family: 'raleway';
     font-size: 14px;
     margin: 0;
     background-color: #dde5e7;
 }
 
 section {
-    margin: 50px 100px;
+    padding: 25px 0;
+    margin: 100px 45px;
 }
 
 h1 {
-    font-family: 'space-mono';
+    /* font-family: 'space-mono'; */
     font-size: 60px;
     margin-bottom: 0;
 }
 
 h2 {
-    font-family: 'space-mono';
-    font-size: 32px;
+    /* font-family: 'space-mono'; */
+    font-size: 42px;
+    /* padding-bottom: 20px; */
+    text-align: center;
 }
 
 h3 {
     font-size: 22px;
-    font-family: 'roboto';
+    /* font-family: 'roboto'; */
     margin: 10px 0 5px 0;
+    text-align: center;
 }
 
 p {
     line-height: 2;
+    max-width: 65svw;
+    /* text-align: center; */
 }

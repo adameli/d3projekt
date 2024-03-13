@@ -221,3 +221,9 @@ function ClearAllIntervals() {
     }
 
 })();
+
+const pauser = document.getElementById( 'pauseButton');
+pauser.onclick = () => {
+    console.log( 'click');
+    ClearAllIntervals()
+};

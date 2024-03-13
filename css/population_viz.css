@@ -67,3 +67,7 @@ svg {
 .parameter-value text {
     font-size: 12px;
 }
+
+.viz-description {
+    margin: 0 auto;
+}

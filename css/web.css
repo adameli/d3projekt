@@ -79,7 +79,7 @@
 #people-transition-container {
     /* width: 300px; */
     display: flex;
-    align-items: end;
+    /* align-items: end; */
     flex-wrap: wrap;
 }
 

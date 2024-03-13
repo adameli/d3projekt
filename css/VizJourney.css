@@ -79,11 +79,28 @@
         align-self: end;
 
         height: 15rem;
-        background: black;
+        /* background: black; */
         width: 100%;
 
         display: flex;
         justify-content: space-around;
         align-items: center;
+
+        & button {
+            background: #00000010;
+            color: rgb(0, 0, 0);
+            padding: 25px;
+            border: unset;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+
+        }
+
+        & button:hover {
+            background: white;
+            border: 1px solid white;
+            cursor: pointer;
+        }
     }
 }

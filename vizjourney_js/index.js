@@ -112,8 +112,11 @@ async function vizualization(country) {
     setInterval(updateViz, 150)
 }
 
-function updateViz() {
-    _STATE.currentYear += 1;
+function updateViz( future = true) {
+    if( future) {_STATE.currentYear += 1;}
+    else { 
+        _STATE.currentYear = _STATE.currentYear - 1;
+    }
 
     if( _STATE.currentYear === _STATE.DB.length) {
         ClearAllIntervals()
@@ -231,14 +234,21 @@ function ClearAllIntervals() {
 
 })();
 
-// const pauser = ;
+
 document.getElementById( 'pauseButton').onclick = () => {
-    console.log( 'click');
     ClearAllIntervals()
 };
 
-//STEP FORWARD ONLY UPDATE
 document.getElementById( 'playButton').onclick = () => {
-    // updateViz();
     setInterval(updateViz, 150)
 }
+
+document.getElementById( 'forwardButton').onclick = () => {
+    updateViz();
+}
+
+document.getElementById( 'backButton').onclick = () => {
+    updateViz( false);
+}
+
+

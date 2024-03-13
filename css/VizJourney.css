@@ -43,31 +43,33 @@
         & input {
             width: 100%;
             padding: 10px;
-            background: black;
-            color: white;
+            /* background: black; */
+            /* color: white; */
             border: 1px solid #00000068;
         }
 
         & ul {
-            list-style: none;
-            padding: unset;
-            max-height: 25rem;
+            background: #00000010;
             border: 1px solid white;
             border-bottom: unset;
-
-            overflow: scroll;
+            
+            padding: unset;
+            margin-top: 0;
+            list-style: none;
+            
+            max-height: 25rem;
+            overflow-y: scroll;
             
             & li {
                 padding: 10px;
                 border-bottom: 1px solid #ffffff50;
-                color: white;
-                background: black;
             }
 
             & li:hover {
                 background: white;
                 border: 1px solid white;
                 color: black;
+                cursor: pointer;
             }
         }
     }
@@ -79,5 +81,9 @@
         height: 15rem;
         background: black;
         width: 100%;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }

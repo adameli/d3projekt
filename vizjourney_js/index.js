@@ -4,6 +4,8 @@ import { AXIS } from './scales.js';
 import { Yscale } from './scales.js';
 import * as SCALES from './scales.js';
 
+let _STATE = {};
+
 const colors = {
     PopTotal: '#f1f1f1',
     PopMale: '#488f31',
@@ -58,6 +60,8 @@ async function vizualization(country) {
     const db = await STATE.get( country);
     
     let currentYear = 0;
+    _STATE.currentYear = 0;
+
     LOADING.remove();
 
     SVG.select('.countryText').text( country)
@@ -76,12 +80,14 @@ async function vizualization(country) {
         Yarray.push( dp);
     }
     DB.splice( 0, 1);
-
+    _STATE.DB = DB;
     // GET Top && Bottom Xscales
     // const Xscale = SCALES.getXScale( DB[currentYear]);
     const XscaleTOT = SCALES.getXScale( DB, true);
-    const YEARscale = SCALES.getYearScale( DB[currentYear]);
-
+    _STATE.XscaleTOT = XscaleTOT;
+    // const YEARscale = SCALES.getYearScale( DB[currentYear]);
+    const YEARscale = SCALES.getYearScale( DB[_STATE.currentYear]);
+    // _STATE.YEARscale = YEARscale;
     // STYLE AXIS
     const bottomAxis = SVG.append( 'g').attr( 'transform', `translate( ${wPad}, ${hViz + hPad})`).classed( 'removable', true).call( D3.axisBottom( XscaleTOT));
     const topAxis = SVG.append( 'g').classed('YearAxis', true).classed( 'removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( YEARscale));
@@ -103,31 +109,33 @@ async function vizualization(country) {
             .attr( 'y', d => Yscale( d.AgeGrp));
     }
 
-    const interval = setInterval(updateViz, 150)
+    setInterval(updateViz, 150)
+}
 
-    function updateViz() {
-        currentYear++;
-        if( currentYear === DB.length) {
-            clearInterval( interval)
-            return;
-        }
+function updateViz() {
+    _STATE.currentYear += 1;
 
-        const newScale = SCALES.getYearScale( DB[currentYear])
-        D3.select( '.YearAxis').remove();
-        let newAxis = SVG.append( 'g').classed('YearAxis', true).classed('removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( newScale));
-        newAxis.selectAll( '.tick text').attr( 'font-size', 25);
-        styleAxis([newAxis]);
+    if( _STATE.currentYear === _STATE.DB.length) {
+        ClearAllIntervals()
+        delete _STATE.currentYear
+        return;
+    }
+
+    const newScale = SCALES.getYearScale( _STATE.DB[_STATE.currentYear])
+    D3.select( '.YearAxis').remove();
+    let newAxis = SVG.append( 'g').classed('YearAxis', true).classed('removable', true).attr( 'transform', `translate( ${wPad}, ${hPad})`).call( D3.axisTop( newScale));
+    newAxis.selectAll( '.tick text').attr( 'font-size', 25);
+    styleAxis([newAxis]);
 
 
-        for( let Type of ['PopTotal', 'PopMale', 'PopFemale']) {
+    for( let Type of ['PopTotal', 'PopMale', 'PopFemale']) {
 
-            VIZ.selectAll( '.' + Type)
-                .data( DB[currentYear])
-                .transition()
-                .attr( 'x', d => XscaleTOT( Math.floor(d[Type] * 1000))) 
-                .attr( 'y', d => Yscale( d.AgeGrp));
+        VIZ.selectAll( '.' + Type)
+            .data( _STATE.DB[_STATE.currentYear])
+            .transition()
+            .attr( 'x', d => _STATE.XscaleTOT( Math.floor(d[Type] * 1000))) 
+            .attr( 'y', d => Yscale( d.AgeGrp));
 
-        }
     }
 }
 
@@ -214,6 +222,7 @@ function ClearAllIntervals() {
 
         entityElement.addEventListener('click', () => {
             ClearAllIntervals();
+            delete _STATE.currentYear
             vizualization( xEntity);
         })
 
@@ -222,8 +231,14 @@ function ClearAllIntervals() {
 
 })();
 
-const pauser = document.getElementById( 'pauseButton');
-pauser.onclick = () => {
+// const pauser = ;
+document.getElementById( 'pauseButton').onclick = () => {
     console.log( 'click');
     ClearAllIntervals()
 };
+
+//STEP FORWARD ONLY UPDATE
+document.getElementById( 'playButton').onclick = () => {
+    // updateViz();
+    setInterval(updateViz, 150)
+}
